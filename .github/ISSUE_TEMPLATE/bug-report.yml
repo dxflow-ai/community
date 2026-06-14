@@ -1,0 +1,122 @@
+name: 🐛 Bug Report
+description: Report a problem with the dxflow engine, CLI, installation, or licensing.
+title: "[Bug]: "
+labels: ["bug", "triage"]
+body:
+    - type: markdown
+      attributes:
+          value: |
+              Thanks for taking the time to file a bug report! Please fill out the sections below so we can reproduce and fix the issue quickly.
+
+              **This tracker covers the dxflow engine, CLI, installer, releases, and licensing.** Issues for the web console, hub templates, and documentation live in their own repos — see the links on the [new issue chooser](https://github.com/dxflow-ai/community/issues/new/choose).
+    - type: checkboxes
+      id: preflight
+      attributes:
+          label: Before you start
+          options:
+              - label: I have searched the [existing issues](https://github.com/dxflow-ai/community/issues) and this hasn't been reported yet.
+                required: true
+              - label: I have read the relevant [documentation](https://dxflow.ai/docs).
+                required: true
+    - type: dropdown
+      id: component
+      attributes:
+          label: Component
+          description: Which part of dxflow is affected?
+          options:
+              - Installation (install.sh)
+              - Engine — boot / daemon (dxflow boot)
+              - Engine — workflows (dxflow workflow)
+              - Engine — artifacts / files (dxflow artifact)
+              - Engine — shell sessions (dxflow shell)
+              - Engine — proxy / bridge / tunneling
+              - Engine — config (dxflow config)
+              - Authentication / keys (dxflow key)
+              - Licensing (dxflow license)
+              - CLI — general
+              - Releases / prebuilt binaries
+              - Other / not sure
+      validations:
+          required: true
+    - type: textarea
+      id: description
+      attributes:
+          label: Description
+          description: A clear and concise description of what the bug is.
+      validations:
+          required: true
+    - type: textarea
+      id: reproduction
+      attributes:
+          label: Steps to reproduce
+          description: How can we reproduce the behavior? Include the exact commands you ran.
+          placeholder: |
+              1. Install with '...'
+              2. Run `dxflow ...`
+              3. See error
+      validations:
+          required: true
+    - type: textarea
+      id: expected
+      attributes:
+          label: Expected behavior
+          description: What did you expect to happen instead?
+      validations:
+          required: true
+    - type: textarea
+      id: logs
+      attributes:
+          label: Logs / output
+          description: Paste the command output, error messages, or `dxflow engine info` / `dxflow stats`. Automatically formatted as code.
+          render: shell
+      validations:
+          required: false
+    - type: input
+      id: version
+      attributes:
+          label: dxflow version
+          description: Output of `dxflow --version`.
+          placeholder: e.g. v1.2.3
+      validations:
+          required: true
+    - type: dropdown
+      id: os
+      attributes:
+          label: Operating system
+          options:
+              - Linux
+              - macOS
+              - Windows
+              - Other
+      validations:
+          required: true
+    - type: dropdown
+      id: arch
+      attributes:
+          label: Architecture
+          options:
+              - amd64 (x86_64)
+              - arm64 (aarch64)
+              - Other / not sure
+      validations:
+          required: true
+    - type: dropdown
+      id: runtime
+      attributes:
+          label: Container runtime
+          description: Which runtime is the engine using (if relevant)?
+          options:
+              - Docker
+              - Podman
+              - Singularity
+              - Apptainer
+              - Not applicable / not sure
+      validations:
+          required: false
+    - type: textarea
+      id: context
+      attributes:
+          label: Additional context
+          description: Anything else that might help — environment, hardware, network setup, related issues, etc.
+      validations:
+          required: false

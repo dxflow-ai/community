@@ -1,0 +1,17 @@
+blank_issues_enabled: false
+contact_links:
+    - name: 📚 Documentation
+      url: https://dxflow.ai/docs
+      about: Read the official docs before opening an issue — your question may already be answered.
+    - name: 🖥️ Console (web UI) issues
+      url: https://github.com/dxflow-ai/console/issues
+      about: Bugs or requests for the web console belong in the console repo.
+    - name: 🧩 Hub template issues
+      url: https://github.com/dxflow-ai/hub/issues
+      about: Request a template or report a template problem in the hub repo.
+    - name: 📝 Documentation issues
+      url: https://github.com/dxflow-ai/docs/issues
+      about: Something unclear or missing in the docs? Open it in the docs repo.
+    - name: 🌐 Website
+      url: https://dxflow.ai
+      about: Learn more about dxflow.
