@@ -1,8 +1,24 @@
 #!/bin/bash
 
+# Initialize the output colors, honoring a terminal stream and the NO_COLOR convention
+if [ -t 1 ] && [ -z "${NO_COLOR}" ]; then
+    BOLD=$(printf '\033[1m')
+    GREEN=$(printf '\033[32m')
+    GRAY=$(printf '\033[90m')
+    RED=$(printf '\033[31m')
+    RESET=$(printf '\033[0m')
+else
+    BOLD=""
+    GREEN=""
+    GRAY=""
+    RED=""
+    RESET=""
+fi
+
+
 # Check the root privileges
 if [ "$(whoami)" != "root" ]; then
-  echo "Requires root privileges"
+  echo "${BOLD}${RED}Requires root privileges${RESET}"
 
   exit 1
 fi
@@ -21,8 +37,8 @@ case "$OS" in
         ;;
 
     *)
-        echo "Unsupported OS: $OS"
-        echo "Supported OS are Linux and MacOS"
+        echo "${BOLD}${RED}Unsupported OS: $OS${RESET}"
+        echo "${RED}Supported OS are Linux and MacOS${RESET}"
 
         exit 1
         ;;
@@ -46,8 +62,8 @@ case "$ARCH" in
         ;;
 
     *)
-        echo "Unsupported architecture: $ARCH"
-        echo "Supported architectures are x86_64, aarch64, and arm64"
+        echo "${BOLD}${RED}Unsupported architecture: $ARCH${RESET}"
+        echo "${RED}Supported architectures are x86_64, aarch64, and arm64${RESET}"
 
         exit 1
         ;;
@@ -65,12 +81,12 @@ TEMP_DIR=$(mktemp -d)
 LATEST_URL=$(curl -s "https://api.github.com/repos/dxflow-ai/community/releases/latest" | grep -m 1 '"tag_name":' | sed -E 's/.*"tag_name": *"([^"]+)".*/\1/')
 
 if [ -z "$LATEST_URL" ]; then
-    echo "Error: Unable to retrieve the latest version tag from GitHub."
+    echo "${BOLD}${RED}Error: Unable to retrieve the latest version tag from GitHub.${RESET}"
 
     exit 1
 fi
 
-echo "Latest release tag: ${LATEST_URL}"
+echo "${GRAY}Latest release tag: ${LATEST_URL}${RESET}"
 
 VERSION=$(basename "${LATEST_URL}")
 CLEAN_VERSION=${VERSION#v}
@@ -81,14 +97,14 @@ echo "Downloading dxflow version ${CLEAN_VERSION} for ${OS} ${ARCH}..."
 CLI_ARCHIVE="${TEMP_DIR}/dxflow_${OS}_${ARCH}.tar.gz"
 GITHUB_URL="https://github.com/dxflow-ai/community/releases/download/${VERSION}/dxflow_${OS}_${ARCH}.tar.gz"
 
-echo "Downloading from: ${GITHUB_URL}"
+echo "${GRAY}Downloading from: ${GITHUB_URL}${RESET}"
 
 # Download the CLI archive
 wget -qO "${CLI_ARCHIVE}" "${GITHUB_URL}"
 
 if [ $? -ne 0 ]; then
-    echo "Failed to download dxflow from GitHub"
-    echo "Please check your internet connection and try again"
+    echo "${BOLD}${RED}Failed to download dxflow from GitHub${RESET}"
+    echo "${RED}Please check your internet connection and try again${RESET}"
 
     exit 1
 fi
@@ -98,8 +114,8 @@ fi
 tar -xzf "${CLI_ARCHIVE}" -C /usr/local/bin
 
 if [ $? -ne 0 ]; then
-    echo "Failed to extract dxflow archive"
-    echo "Please check the archive and try again"
+    echo "${BOLD}${RED}Failed to extract dxflow archive${RESET}"
+    echo "${RED}Please check the archive and try again${RESET}"
 
     exit 1
 fi
@@ -114,5 +130,5 @@ chmod +x "/usr/local/bin/dxflow"
 
 
 # Done CLI installation
-echo "dxflow installed successfully"
-echo "You can verify the CLI installation by running: 'dxflow --version'"
+echo "${BOLD}${GREEN}dxflow installed successfully${RESET}"
+echo "${GRAY}You can verify the CLI installation by running: 'dxflow --version'${RESET}"
