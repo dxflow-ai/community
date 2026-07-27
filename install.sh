@@ -78,8 +78,8 @@ CLEAN_VERSION=${VERSION#v}
 echo "Downloading dxflow version ${CLEAN_VERSION} for ${OS} ${ARCH}..."
 
 # Archive name matches the engine .goreleaser.yaml archive name_template
-CLI_ARCHIVE="${TEMP_DIR}/dxflow_${CLEAN_VERSION}_${OS}_${ARCH}.tar.gz"
-GITHUB_URL="https://github.com/dxflow-ai/community/releases/download/${VERSION}/dxflow_${CLEAN_VERSION}_${OS}_${ARCH}.tar.gz"
+CLI_ARCHIVE="${TEMP_DIR}/dxflow_${OS}_${ARCH}.tar.gz"
+GITHUB_URL="https://github.com/dxflow-ai/community/releases/download/${VERSION}/dxflow_${OS}_${ARCH}.tar.gz"
 
 echo "Downloading from: ${GITHUB_URL}"
 
